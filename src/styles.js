@@ -19,6 +19,8 @@ export default {
   dayEndOfWeek: 'rdrDayEndOfWeek',
   daySelected: 'rdrDaySelected',
   dayDisabled: 'rdrDayDisabled',
+  dayDisabledStart: 'rdrDayDisabledStart',
+  dayDisabledEnd: 'rdrDayDisabledEnd',
   dayStartOfMonth: 'rdrDayStartOfMonth',
   dayEndOfMonth: 'rdrDayEndOfMonth',
   dayWeekend: 'rdrDayWeekend',

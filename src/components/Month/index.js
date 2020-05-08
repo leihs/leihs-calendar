@@ -36,7 +36,15 @@ function renderWeekdays(styles, dateOptions, weekdayDisplayFormat) {
 class Month extends PureComponent {
   render() {
     const now = new Date();
-    const { displayMode, focusedRange, drag, styles, disabledDates } = this.props;
+    const {
+      displayMode,
+      focusedRange,
+      drag,
+      styles,
+      disabledDates,
+      disabledStartDates,
+      disabledEndDates,
+    } = this.props;
     const minDate = this.props.minDate && startOfDay(this.props.minDate);
     const maxDate = this.props.maxDate && endOfDay(this.props.maxDate);
     const monthDisplay = getMonthDisplayRange(
@@ -57,6 +65,7 @@ class Month extends PureComponent {
       });
     }
     const showPreview = this.props.showPreview && !drag.disablePreview;
+    const allDisabledDates = disabledDates.concat(disabledStartDates, disabledEndDates);
     return (
       <div className={styles.month} style={this.props.style}>
         {this.props.showMonthName ? (
@@ -73,7 +82,13 @@ class Month extends PureComponent {
               const isEndOfMonth = isSameDay(day, monthDisplay.endDateOfMonth);
               const isOutsideMinMax =
                 (minDate && isBefore(day, minDate)) || (maxDate && isAfter(day, maxDate));
-              const isDisabledSpecifically = disabledDates.some(disabledDate =>
+              const isDisabledSpecifically = allDisabledDates.some(disabledDate =>
+                isSameDay(disabledDate, day)
+              );
+              const isDisabledStartDate = disabledStartDates.some(disabledDate =>
+                isSameDay(disabledDate, day)
+              );
+              const isDisabledEndDate = disabledEndDates.some(disabledDate =>
                 isSameDay(disabledDate, day)
               );
               return (
@@ -90,6 +105,8 @@ class Month extends PureComponent {
                   isEndOfMonth={isEndOfMonth}
                   key={index}
                   disabled={isOutsideMinMax || isDisabledSpecifically}
+                  disabledStart={isDisabledStartDate}
+                  disabledEnd={isDisabledEndDate}
                   isPassive={
                     !isWithinInterval(day, {
                       start: monthDisplay.startDateOfMonth,

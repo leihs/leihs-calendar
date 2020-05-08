@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 import Calendar from '../Calendar';
 import { rangeShape } from '../DayCell';
 import { findNextRangeIndex, generateStyles } from '../../utils';
-import { isBefore, differenceInCalendarDays, addDays, min, isWithinInterval, max } from 'date-fns';
+import {
+  isBefore,
+  differenceInCalendarDays,
+  addDays,
+  min,
+  isWithinInterval,
+  max,
+  isSameDay,
+} from 'date-fns';
 import classnames from 'classnames';
 import coreStyles from '../../styles';
 
@@ -18,7 +26,15 @@ class DateRange extends Component {
   }
   calcNewSelection = (value, isSingleValue = true) => {
     const focusedRange = this.props.focusedRange || this.state.focusedRange;
-    const { ranges, onChange, maxDate, moveRangeOnFirstSelection, disabledDates } = this.props;
+    const {
+      ranges,
+      onChange,
+      maxDate,
+      moveRangeOnFirstSelection,
+      disabledDates,
+      disabledStartDates,
+      disabledEndDates,
+    } = this.props;
     const focusedRangeIndex = focusedRange[0];
     const selectedRange = ranges[focusedRangeIndex];
     if (!selectedRange || !onChange) return {};
@@ -47,6 +63,13 @@ class DateRange extends Component {
       [startDate, endDate] = [endDate, startDate];
     }
 
+    const startDateIsDisabled = disabledStartDates.some(disabledDate =>
+      isSameDay(startDate, disabledDate)
+    );
+    const endDateIsDisabled = disabledEndDates.some(disabledDate =>
+      isSameDay(endDate, disabledDate)
+    );
+
     const inValidDatesWithinRange = disabledDates.filter(disabledDate =>
       isWithinInterval(disabledDate, {
         start: startDate,
@@ -67,7 +90,7 @@ class DateRange extends Component {
       nextFocusRange = [nextFocusRangeIndex, 0];
     }
     return {
-      wasValid: !(inValidDatesWithinRange.length > 0),
+      wasValid: !startDateIsDisabled && !endDateIsDisabled && !(inValidDatesWithinRange.length > 0),
       range: { startDate, endDate },
       nextFocusRange: nextFocusRange,
     };
@@ -133,6 +156,8 @@ DateRange.defaultProps = {
   moveRangeOnFirstSelection: false,
   rangeColors: ['#3d91ff', '#3ecf8e', '#fed14c'],
   disabledDates: [],
+  disabledStartDates: [],
+  disabledEndDates: [],
 };
 
 DateRange.propTypes = {
