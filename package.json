@@ -1,16 +1,20 @@
 {
-  "name": "react-date-range",
-  "version": "1.0.3",
+  "name": "@leihs/calendar",
+  "version": "2.0.0-beta.1",
   "description": "A React component for choosing dates and date ranges.",
   "main": "dist/index.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
-    "start": "yarn build:css & styleguidist server",
-    "build": "yarn build:css & yarn build:js & styleguidist build",
+    "start": "npm run -s build:css & styleguidist server",
+    "build": "npm run -s build-lib && && styleguidist build",
+    "build-lib": "npm run -s build:css && npm run -s build:js",
     "build:css": "postcss 'src/styles.scss' -d dist --ext css & postcss 'src/theme/*.scss' -d 'dist/theme' --ext css",
     "build:js": "babel ./src --out-dir ./dist --ignore test.js",
     "lint": "eslint 'src/**/*.js'",
     "test": "jest",
-    "preversion": "yarn clear & yarn build"
+    "prepare": "rm -rf dist && npm run -s build-lib"
   },
   "keywords": [
     "react",
@@ -20,6 +24,7 @@
     "rangepicker"
   ],
   "contributors": [
+    "Max Albrecht <1@178.is> (https://github.com/eins78)",
     "Burak Can <neoberg@gmail.com> (https://github.com/burakcan)",
     "Mehmet Kamil Morcay <mehmetmorcay@gmail.com> (https://github.com/mkg0)",
     "Engin Semih Basmacı <semih.basmaci@gmail.com> (https://github.com/mortargrind)",
