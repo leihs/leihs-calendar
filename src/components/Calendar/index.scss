@@ -74,8 +74,15 @@
   flex-direction: row;
 }
 
-.rdrMonth {
+.rdrMonth,
+.rdrMonthIsLoading {
   width: 27.667em;
+}
+
+.rdrMonthIsLoading {
+  height: 7em;
+  text-align: center;
+  line-height: 7em;
 }
 
 .rdrWeekDays {
