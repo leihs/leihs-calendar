@@ -120,10 +120,14 @@ class Calendar extends PureComponent {
       dateRange: 'ranges',
       date: 'date',
     };
-    const targetProp = propMapper[this.props.displayMode];
-    if (this.props[targetProp] !== prevProps[targetProp]) {
-      this.updateShownDate(this.props);
-    }
+
+    // FIXME: this was disabled to prevent the calendar jumping around when data is loaded
+    //        needs investigation if it's needed in some other cases
+    //
+    // const targetProp = propMapper[this.props.displayMode];
+    // if (this.props[targetProp] !== prevProps[targetProp]) {
+    //   this.updateShownDate(this.props);
+    // }
 
     if (
       prevProps.locale !== this.props.locale ||
