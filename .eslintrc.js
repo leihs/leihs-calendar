@@ -9,7 +9,7 @@ module.exports = {
         "prettier",
     ],
     rules: {
-        "prettier/prettier": ["error", {
+        "prettier/prettier": ["warn", {
             "singleQuote": true,
             "trailingComma": "es5",
             "bracketSpacing": true,
