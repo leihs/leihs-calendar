@@ -1,6 +1,7 @@
 /* eslint-disable no-fallthrough */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import DayCell, { rangeShape } from '../DayCell';
 import {
   format,
@@ -44,6 +45,8 @@ class Month extends PureComponent {
       disabledDates,
       disabledStartDates,
       disabledEndDates,
+      isLoading,
+      loadingIndicator,
     } = this.props;
     const minDate = this.props.minDate && startOfDay(this.props.minDate);
     const maxDate = this.props.maxDate && endOfDay(this.props.maxDate);
@@ -53,7 +56,7 @@ class Month extends PureComponent {
       this.props.fixedHeight
     );
     let ranges = this.props.ranges;
-    if (displayMode === 'dateRange' && drag.status) {
+    if (isLoading && displayMode === 'dateRange' && drag.status) {
       let { startDate, endDate } = drag.range;
       ranges = ranges.map((range, i) => {
         if (i !== focusedRange[0]) return range;
@@ -64,10 +67,13 @@ class Month extends PureComponent {
         };
       });
     }
-    const showPreview = this.props.showPreview && !drag.disablePreview;
+    const showPreview = isLoading && this.props.showPreview && !drag.disablePreview;
     const allDisabledDates = disabledDates.concat(disabledStartDates, disabledEndDates);
+    const classNames = classnames(styles.month, {
+      [styles.monthPassive]: !isLoading,
+    });
     return (
-      <div className={styles.month} style={this.props.style}>
+      <div className={classNames} style={this.props.style}>
         {this.props.showMonthName ? (
           <div className={styles.monthName}>
             {format(this.props.month, this.props.monthDisplayFormat, this.props.dateOptions)}
@@ -108,6 +114,7 @@ class Month extends PureComponent {
                   disabledStart={isDisabledStartDate}
                   disabledEnd={isDisabledEndDate}
                   isPassive={
+                    !isLoading ||
                     !isWithinInterval(day, {
                       start: monthDisplay.startDateOfMonth,
                       end: monthDisplay.endDateOfMonth,
@@ -124,12 +131,17 @@ class Month extends PureComponent {
             }
           )}
         </div>
+        {!isLoading && (
+          <div className="rdrMonthPassiveOverlay">
+            {loadingIndicator ? loadingIndicator : false}
+          </div>
+        )}
       </div>
     );
   }
 }
 
-Month.defaultProps = {};
+Month.defaultProps = { isLoading: true };
 
 Month.propTypes = {
   style: PropTypes.object,
@@ -138,6 +150,8 @@ Month.propTypes = {
   drag: PropTypes.object,
   dateOptions: PropTypes.object,
   disabledDates: PropTypes.array,
+  disabledStartDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+  disabledEndDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   preview: PropTypes.shape({
     startDate: PropTypes.object,
     endDate: PropTypes.object,
@@ -158,6 +172,8 @@ Month.propTypes = {
   showWeekDays: PropTypes.bool,
   showMonthName: PropTypes.bool,
   fixedHeight: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  loadingIndicator: PropTypes.node,
 };
 
 export default Month;

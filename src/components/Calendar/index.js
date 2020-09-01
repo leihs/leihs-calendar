@@ -14,6 +14,7 @@ import {
   startOfWeek,
   endOfWeek,
   isSameDay,
+  isAfter,
   addYears,
   setYear,
   setMonth,
@@ -116,14 +117,13 @@ class Calendar extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const propMapper = {
-      dateRange: 'ranges',
-      date: 'date',
-    };
-
     // FIXME: this was disabled to prevent the calendar jumping around when data is loaded
     //        needs investigation if it's needed in some other cases
     //
+    // const propMapper = {
+    //   dateRange: 'ranges',
+    //   date: 'date',
+    // };
     // const targetProp = propMapper[this.props.displayMode];
     // if (this.props[targetProp] !== prevProps[targetProp]) {
     //   this.updateShownDate(this.props);
@@ -313,11 +313,6 @@ class Calendar extends PureComponent {
       </div>
     );
   };
-  renderLoadingMonth = ({ key }) => (
-    <div key={key} className={this.styles.monthIsLoading}>
-      {this.props.loadingIndicator}
-    </div>
-  );
 
   onDragSelectionStart = date => {
     const { onChange, dragSelectionEnabled } = this.props;
@@ -392,12 +387,12 @@ class Calendar extends PureComponent {
       disabledEndDates,
       maxDate,
       minDate,
+      maxDateLoaded,
       rangeColors,
       color,
       navigatorRenderer,
       className,
       preview,
-      isLoadingFuture,
     } = this.props;
     const { scrollArea, focusedDate } = this.state;
     const isVertical = direction === 'vertical';
@@ -408,12 +403,11 @@ class Calendar extends PureComponent {
       color: range.color || rangeColors[i] || color,
     }));
 
-    const scrollingLength =
-      differenceInCalendarMonths(
-        endOfMonth(maxDate),
-        addDays(startOfMonth(minDate), -1),
-        this.dateOptions
-      ) + (isLoadingFuture ? 1 : 0);
+    const numberOfTotalMonths = differenceInCalendarMonths(
+      endOfMonth(maxDate),
+      addDays(startOfMonth(minDate), -1),
+      this.dateOptions
+    );
 
     return (
       <div
@@ -439,49 +433,51 @@ class Calendar extends PureComponent {
               }}
               onScroll={this.handleScroll}>
               <ReactList
-                length={scrollingLength}
-                treshold={500}
+                length={numberOfTotalMonths}
+                threshold={2500}
                 type="variable"
+                // type="uniform"
                 ref={target => (this.list = target)}
                 itemSizeEstimator={this.estimateMonthSize}
                 axis={isVertical ? 'y' : 'x'}
+                // minSize={15}
+                // pageSize={10}
+                // useTranslate3d
+                // useStaticSize
                 itemRenderer={(index, key) => {
                   const monthStep = addMonths(minDate, index);
-                  // when loading, then last item in list is not a month but the loading indicator
-                  if (isLoadingFuture && index === scrollingLength - 1) {
-                    return this.renderLoadingMonth({ key });
-                  } else {
-                    return (
-                      <Month
-                        {...this.props}
-                        onPreviewChange={onPreviewChange || this.updatePreview}
-                        preview={preview || this.state.preview}
-                        ranges={ranges}
-                        key={key}
-                        drag={this.state.drag}
-                        dateOptions={this.dateOptions}
-                        disabledDates={disabledDates}
-                        disabledStartDates={disabledStartDates}
-                        disabledEndDates={disabledEndDates}
-                        month={monthStep}
-                        onDragSelectionStart={this.onDragSelectionStart}
-                        onDragSelectionEnd={this.onDragSelectionEnd}
-                        onDragSelectionMove={this.onDragSelectionMove}
-                        onMouseLeave={() => onPreviewChange && onPreviewChange()}
-                        styles={this.styles}
-                        style={
-                          isVertical
-                            ? { height: this.estimateMonthSize(index) }
-                            : {
-                                height: scrollArea.monthHeight,
-                                width: this.estimateMonthSize(index),
-                              }
-                        }
-                        showMonthName
-                        showWeekDays={!isVertical}
-                      />
-                    );
-                  }
+                  const isMonthLoading = isAfter(endOfMonth(monthStep), addDays(maxDateLoaded, 1));
+                  return (
+                    <Month
+                      {...this.props}
+                      onPreviewChange={onPreviewChange || this.updatePreview}
+                      preview={preview || this.state.preview}
+                      ranges={ranges}
+                      key={key}
+                      drag={this.state.drag}
+                      dateOptions={this.dateOptions}
+                      disabledDates={disabledDates}
+                      disabledStartDates={disabledStartDates}
+                      disabledEndDates={disabledEndDates}
+                      isLoading={!isMonthLoading}
+                      month={monthStep}
+                      onDragSelectionStart={this.onDragSelectionStart}
+                      onDragSelectionEnd={this.onDragSelectionEnd}
+                      onDragSelectionMove={this.onDragSelectionMove}
+                      onMouseLeave={() => onPreviewChange && onPreviewChange()}
+                      styles={this.styles}
+                      style={
+                        isVertical
+                          ? { height: this.estimateMonthSize(index) }
+                          : {
+                              height: scrollArea.monthHeight,
+                              width: this.estimateMonthSize(index),
+                            }
+                      }
+                      showMonthName
+                      showWeekDays={!isVertical}
+                    />
+                  );
                 }}
               />
             </div>
@@ -492,35 +488,30 @@ class Calendar extends PureComponent {
               this.styles.months,
               isVertical ? this.styles.monthsVertical : this.styles.monthsHorizontal
             )}>
-            {new Array(this.props.months + (isLoadingFuture ? 1 : 0)).fill(null).map((_, i) => {
+            {new Array(this.props.months).fill(null).map((_, i) => {
               const monthStep = addMonths(this.state.focusedDate, i);
-              // when loading, then last item in list is not a month but the loading indicator
-              if (isLoadingFuture && i === this.props.months) {
-                return this.renderLoadingMonth({ key: 'month-loading-future' });
-              } else {
-                return (
-                  <Month
-                    {...this.props}
-                    onPreviewChange={onPreviewChange || this.updatePreview}
-                    preview={preview || this.state.preview}
-                    ranges={ranges}
-                    key={i}
-                    drag={this.state.drag}
-                    dateOptions={this.dateOptions}
-                    disabledDates={disabledDates}
-                    disabledStartDates={disabledStartDates}
-                    disabledEndDates={disabledEndDates}
-                    month={monthStep}
-                    onDragSelectionStart={this.onDragSelectionStart}
-                    onDragSelectionEnd={this.onDragSelectionEnd}
-                    onDragSelectionMove={this.onDragSelectionMove}
-                    onMouseLeave={() => onPreviewChange && onPreviewChange()}
-                    styles={this.styles}
-                    showWeekDays={!isVertical || i === 0}
-                    showMonthName={!isVertical || i > 0}
-                  />
-                );
-              }
+              return (
+                <Month
+                  {...this.props}
+                  onPreviewChange={onPreviewChange || this.updatePreview}
+                  preview={preview || this.state.preview}
+                  ranges={ranges}
+                  key={i}
+                  drag={this.state.drag}
+                  dateOptions={this.dateOptions}
+                  disabledDates={disabledDates}
+                  disabledStartDates={disabledStartDates}
+                  disabledEndDates={disabledEndDates}
+                  month={monthStep}
+                  onDragSelectionStart={this.onDragSelectionStart}
+                  onDragSelectionEnd={this.onDragSelectionEnd}
+                  onDragSelectionMove={this.onDragSelectionMove}
+                  onMouseLeave={() => onPreviewChange && onPreviewChange()}
+                  styles={this.styles}
+                  showWeekDays={!isVertical || i === 0}
+                  showMonthName={!isVertical || i > 0}
+                />
+              );
             })}
           </div>
         )}
@@ -560,7 +551,8 @@ Calendar.defaultProps = {
   editableDateInputs: false,
   dragSelectionEnabled: true,
   fixedHeight: false,
-  loadingIndicator: <span>Loading data…</span>,
+  maxDateLoaded: null,
+  loadingIndicator: 'loading…',
 };
 
 Calendar.propTypes = {
@@ -615,8 +607,8 @@ Calendar.propTypes = {
   editableDateInputs: PropTypes.bool,
   dragSelectionEnabled: PropTypes.bool,
   fixedHeight: PropTypes.bool,
+  maxDateLoaded: PropTypes.instanceOf(Date),
   loadingIndicator: PropTypes.node,
-  isLoadingFuture: PropTypes.bool,
 };
 
 export default Calendar;
