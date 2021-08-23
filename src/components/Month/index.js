@@ -68,7 +68,6 @@ class Month extends PureComponent {
       });
     }
     const showPreview = isLoading && this.props.showPreview && !drag.disablePreview;
-    const allDisabledDates = disabledDates.concat(disabledStartDates, disabledEndDates);
     const classNames = classnames(styles.month, {
       [styles.monthPassive]: !isLoading,
     });
@@ -88,7 +87,7 @@ class Month extends PureComponent {
               const isEndOfMonth = isSameDay(day, monthDisplay.endDateOfMonth);
               const isOutsideMinMax =
                 (minDate && isBefore(day, minDate)) || (maxDate && isAfter(day, maxDate));
-              const isDisabledSpecifically = allDisabledDates.some(disabledDate =>
+              const isDisabledSpecifically = disabledDates.some(disabledDate =>
                 isSameDay(disabledDate, day)
               );
               const isDisabledStartDate = disabledStartDates.some(disabledDate =>
