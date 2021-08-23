@@ -22,9 +22,17 @@ class DayCell extends Component {
     }
   };
   handleMouseEvent = event => {
-    const { day, disabled, onPreviewChange, onMouseEnter, onMouseDown, onMouseUp } = this.props;
+    const {
+      day,
+      disabled,
+      allowSelectionOfDisabledDates,
+      onPreviewChange,
+      onMouseEnter,
+      onMouseDown,
+      onMouseUp,
+    } = this.props;
     const stateChanges = {};
-    if (disabled) {
+    if (!allowSelectionOfDisabledDates && disabled) {
       onPreviewChange();
       return;
     }
@@ -206,6 +214,7 @@ DayCell.propTypes = {
   disabled: PropTypes.bool,
   disabledStart: PropTypes.bool,
   disabledEnd: PropTypes.bool,
+  allowSelectionOfDisabledDates: PropTypes.bool,
   isPassive: PropTypes.bool,
   isToday: PropTypes.bool,
   isWeekend: PropTypes.bool,

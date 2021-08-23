@@ -34,6 +34,7 @@ class DateRange extends Component {
       disabledDates,
       disabledStartDates,
       disabledEndDates,
+      allowSelectionOfDisabledDates,
     } = this.props;
     const focusedRangeIndex = focusedRange[0];
     const selectedRange = ranges[focusedRangeIndex];
@@ -77,7 +78,7 @@ class DateRange extends Component {
       })
     );
 
-    if (inValidDatesWithinRange.length > 0) {
+    if (!allowSelectionOfDisabledDates && inValidDatesWithinRange.length > 0) {
       if (isStartDateSelected) {
         startDate = addDays(max(inValidDatesWithinRange), 1);
       } else {
