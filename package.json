@@ -8,7 +8,9 @@
     "build": "npm run -s build-lib && styleguidist build",
     "build-lib": "npm run -s build:css && npm run -s build:js",
     "build:css": "postcss 'src/styles.scss' -d dist --ext css & postcss 'src/theme/*.scss' -d 'dist/theme' --ext css",
+    "watch:css": "postcss 'src/styles.scss' -d dist --ext css --watch & postcss 'src/theme/*.scss' -d 'dist/theme' --ext css --watch",
     "build:js": "babel ./src --out-dir ./dist --ignore test.js",
+    "watch:js": "babel ./src --watch --out-dir ./dist --ignore test.js",
     "lint": "eslint 'src/**/*.js'",
     "test": "jest",
     "prepare": "rm -rf dist && npm run -s build-lib"
