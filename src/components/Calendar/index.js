@@ -459,7 +459,7 @@ class Calendar extends PureComponent {
                       disabledDates={disabledDates}
                       disabledStartDates={disabledStartDates}
                       disabledEndDates={disabledEndDates}
-                      isLoading={!isMonthLoading}
+                      isLoading={isMonthLoading}
                       month={monthStep}
                       onDragSelectionStart={this.onDragSelectionStart}
                       onDragSelectionEnd={this.onDragSelectionEnd}
@@ -490,6 +490,7 @@ class Calendar extends PureComponent {
             )}>
             {new Array(this.props.months).fill(null).map((_, i) => {
               const monthStep = addMonths(this.state.focusedDate, i);
+              const isMonthLoading = isAfter(endOfMonth(monthStep), addDays(maxDateLoaded, 1));
               return (
                 <Month
                   {...this.props}
@@ -510,6 +511,7 @@ class Calendar extends PureComponent {
                   styles={this.styles}
                   showWeekDays={!isVertical || i === 0}
                   showMonthName={!isVertical || i > 0}
+                  isLoading={isMonthLoading}
                 />
               );
             })}

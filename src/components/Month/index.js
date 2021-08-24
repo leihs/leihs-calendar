@@ -56,7 +56,7 @@ class Month extends PureComponent {
       this.props.fixedHeight
     );
     let ranges = this.props.ranges;
-    if (isLoading && displayMode === 'dateRange' && drag.status) {
+    if (!isLoading && displayMode === 'dateRange' && drag.status) {
       let { startDate, endDate } = drag.range;
       ranges = ranges.map((range, i) => {
         if (i !== focusedRange[0]) return range;
@@ -67,9 +67,9 @@ class Month extends PureComponent {
         };
       });
     }
-    const showPreview = isLoading && this.props.showPreview && !drag.disablePreview;
+    const showPreview = !isLoading && this.props.showPreview && !drag.disablePreview;
     const classNames = classnames(styles.month, {
-      [styles.monthPassive]: !isLoading,
+      [styles.monthPassive]: isLoading,
     });
     return (
       <div className={classNames} style={this.props.style}>
@@ -96,6 +96,7 @@ class Month extends PureComponent {
               const isDisabledEndDate = disabledEndDates.some(disabledDate =>
                 isSameDay(disabledDate, day)
               );
+
               return (
                 <DayCell
                   {...this.props}
@@ -113,7 +114,7 @@ class Month extends PureComponent {
                   disabledStart={isDisabledStartDate}
                   disabledEnd={isDisabledEndDate}
                   isPassive={
-                    !isLoading ||
+                    isLoading ||
                     !isWithinInterval(day, {
                       start: monthDisplay.startDateOfMonth,
                       end: monthDisplay.endDateOfMonth,
@@ -130,7 +131,7 @@ class Month extends PureComponent {
             }
           )}
         </div>
-        {!isLoading && (
+        {!!isLoading && (
           <div className="rdrMonthPassiveOverlay">
             {loadingIndicator ? loadingIndicator : false}
           </div>
