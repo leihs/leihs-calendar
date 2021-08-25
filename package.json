@@ -33,10 +33,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://github.com/Adphorus/react-date-range"
+    "url": "https://github.com/leihs/leihs-calendar"
   },
   "bugs": {
-    "url": "http://github.com/Adphorus/react-date-range/issues"
+    "url": "https://github.com/leihs/leihs-calendar/issues"
   },
   "browserslist": [
     "defaults"
