@@ -1,6 +1,6 @@
 {
-  "name": "react-date-range",
-  "version": "1.4.0",
+  "name": "@leihs/calendar",
+  "version": "3.0.0-beta.1",
   "description": "A React component for choosing dates and date ranges.",
   "main": "dist/index.js",
   "scripts": {
@@ -20,6 +20,8 @@
     "rangepicker"
   ],
   "contributors": [
+    "Max Albrecht <1@178.is> (https://github.com/eins78)",
+    "Urs van Binsbergen <urs.vanbinsbergen@zhdk.ch> (https://github.com/urs-van-binsbergen)",
     "Burak Can <neoberg@gmail.com> (https://github.com/burakcan)",
     "Mehmet Kamil Morcay <mehmetmorcay@gmail.com> (https://github.com/mkg0)",
     "Kamyar Ghasemlou <github@kamy.me> (https://github.com/kamyar)",
@@ -29,10 +31,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://github.com/hypeserver/react-date-range"
+    "url": "https://github.com/leihs/leihs-calendar"
   },
   "bugs": {
-    "url": "http://github.com/hypeserver/react-date-range/issues"
+    "url": "https://github.com/leihs/leihs-calendar/issues"
   },
   "browserslist": [
     "defaults"
