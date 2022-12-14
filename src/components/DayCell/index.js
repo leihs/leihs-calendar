@@ -56,7 +56,7 @@ class DayCell extends Component {
       this.setState(stateChanges);
     }
   };
-  getClassNames = () => {
+  getClassNames = customClassNames => {
     const {
       isPassive,
       isToday,
@@ -69,7 +69,7 @@ class DayCell extends Component {
       styles,
     } = this.props;
 
-    return classnames(styles.day, {
+    return classnames(styles.day, customClassNames, {
       [styles.dayPassive]: isPassive,
       [styles.dayDisabled]: disabled,
       [styles.dayToday]: isToday,
@@ -151,7 +151,8 @@ class DayCell extends Component {
   };
 
   render() {
-    const { dayContentRenderer } = this.props;
+    const { dayContentRenderer, dayConfigGetter } = this.props;
+    const { customClassNames } = dayConfigGetter?.(this.props.day) || {};
     return (
       <button
         type="button"
@@ -164,16 +165,15 @@ class DayCell extends Component {
         onPauseCapture={this.handleMouseEvent}
         onKeyDown={this.handleKeyEvent}
         onKeyUp={this.handleKeyEvent}
-        className={this.getClassNames(this.props.styles)}
+        className={this.getClassNames(customClassNames)}
         {...(this.props.disabled || this.props.isPassive ? { tabIndex: -1 } : {})}
         style={{ color: this.props.color }}>
         {this.renderSelectionPlaceholders()}
         {this.renderPreviewPlaceholder()}
         <span className={this.props.styles.dayNumber}>
-          {
-            dayContentRenderer?.(this.props.day) ||
+          {dayContentRenderer?.(this.props.day) || (
             <span>{format(this.props.day, this.props.dayDisplayFormat)}</span>
-          }
+          )}
         </span>
       </button>
     );
@@ -219,6 +219,7 @@ DayCell.propTypes = {
   onMouseUp: PropTypes.func,
   onMouseEnter: PropTypes.func,
   dayContentRenderer: PropTypes.func,
+  dayConfigGetter: PropTypes.func,
 };
 
 export default DayCell;

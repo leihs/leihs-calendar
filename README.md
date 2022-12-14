@@ -6,6 +6,12 @@ Docs and Examples: <https://leihs.github.io/leihs-calendar/>
 
 It was forked from <https://github.com/hypeserver/react-date-range> (version 1.4), go there for more information.
 
+## Additional features of this fork
+
+### Custom CSS class names per day cell
+
+Prop `dayConfigGetter`: a callback function with `day` (`Date` object) argument, must return an object of shape `{ customClassNames: "my-custom-class"}`. 
+
 ## Getting Started
 
 Install [Node.js](https://nodejs.org/en/download) and [Yarn](https://yarnpkg.com/lang/en/).
