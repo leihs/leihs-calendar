@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Forked from <https://github.com/hypeserver/react-date-range>
 - Prop `dayConfigGetter`
+- fix: do not `updateShownDate` in `componentDidUpdate` (because it causes unwanted month change on every prop update)
 
 ## 1.4.0
 

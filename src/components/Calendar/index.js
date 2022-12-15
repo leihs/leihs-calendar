@@ -126,14 +126,16 @@ class Calendar extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const propMapper = {
-      dateRange: 'ranges',
-      date: 'date',
-    };
-    const targetProp = propMapper[this.props.displayMode];
-    if (this.props[targetProp] !== prevProps[targetProp]) {
-      this.updateShownDate(this.props);
-    }
+    // Removed the following because it causes unwanted month jumping on prop change.
+    //
+    // const propMapper = {
+    //   dateRange: 'ranges',
+    //   date: 'date',
+    // };
+    // const targetProp = propMapper[this.props.displayMode];
+    // if (this.props[targetProp] !== prevProps[targetProp]) {
+    //   this.updateShownDate(this.props);
+    // }
 
     if (
       prevProps.locale !== this.props.locale ||
@@ -493,7 +495,7 @@ class Calendar extends PureComponent {
               isVertical ? this.styles.monthsVertical : this.styles.monthsHorizontal
             )}>
             {new Array(this.props.months).fill(null).map((_, i) => {
-              let monthStep = addMonths(this.state.focusedDate, i);;
+              let monthStep = addMonths(this.state.focusedDate, i);
               if (this.props.calendarFocus === 'backwards') {
                 monthStep = subMonths(this.state.focusedDate, this.props.months - 1 - i);
               }
