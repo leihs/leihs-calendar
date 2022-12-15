@@ -12,6 +12,12 @@ It was forked from <https://github.com/hypeserver/react-date-range> (version 1.4
 
 Prop `dayConfigGetter`: a callback function with `day` (`Date` object) argument, must return an object of shape `{ customClassNames: "my-custom-class"}`. 
 
+### Month lazy loading
+
+Prop `maxDateLoaded`: When given, any month beyond this date will show a loading indicator instead of the calendar. 
+
+Prop `loadingIndicator`: Content of the loading indicator (defaults to "loading…")
+
 ## Getting Started
 
 Install [Node.js](https://nodejs.org/en/download) and [Yarn](https://yarnpkg.com/lang/en/).

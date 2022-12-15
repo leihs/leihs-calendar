@@ -8,6 +8,7 @@ export default {
   monthAndYearPickers: 'rdrMonthAndYearPickers',
   nextPrevButton: 'rdrNextPrevButton',
   month: 'rdrMonth',
+  monthPassive: 'rdrMonthPassive',
   weekDays: 'rdrWeekDays',
   weekDay: 'rdrWeekDay',
   days: 'rdrDays',
@@ -50,4 +51,5 @@ export default {
   infiniteMonths: 'rdrInfiniteMonths',
   monthsVertical: 'rdrMonthsVertical',
   monthsHorizontal: 'rdrMonthsHorizontal',
+  monthIsLoading: 'rdrMonthIsLoading',
 };

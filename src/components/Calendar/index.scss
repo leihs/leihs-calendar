@@ -69,8 +69,28 @@
   flex-direction: row;
 }
 
-.rdrMonth{
-  width: 27.667em;
+.rdrMonthPassiveOverlay {
+  background: white;
+  opacity: 0.5;
+  font-size: 1rem;
+
+  /* overlay over parent (which must be `position: relative`) */
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  /* center contents */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rdrMonthIsLoading {
+  height: 7em;
+  text-align: center;
+  line-height: 7em;
 }
 
 .rdrWeekDays{

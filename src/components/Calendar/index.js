@@ -15,6 +15,7 @@ import {
   startOfWeek,
   endOfWeek,
   isSameDay,
+  isAfter,
   addYears,
   setYear,
   setMonth,
@@ -408,6 +409,7 @@ class Calendar extends PureComponent {
       disabledDay,
       maxDate,
       minDate,
+      maxDateLoaded,
       rangeColors,
       color,
       navigatorRenderer,
@@ -458,6 +460,7 @@ class Calendar extends PureComponent {
                 axis={isVertical ? 'y' : 'x'}
                 itemRenderer={(index, key) => {
                   const monthStep = addMonths(minDate, index);
+                  const isMonthLoading = isAfter(endOfMonth(monthStep), addDays(maxDateLoaded, 1));
                   return (
                     <Month
                       {...this.props}
@@ -469,6 +472,7 @@ class Calendar extends PureComponent {
                       dateOptions={this.dateOptions}
                       disabledDates={disabledDates}
                       disabledDay={disabledDay}
+                      isLoading={isMonthLoading}
                       month={monthStep}
                       onDragSelectionStart={this.onDragSelectionStart}
                       onDragSelectionEnd={this.onDragSelectionEnd}
@@ -499,6 +503,7 @@ class Calendar extends PureComponent {
               if (this.props.calendarFocus === 'backwards') {
                 monthStep = subMonths(this.state.focusedDate, this.props.months - 1 - i);
               }
+              const isMonthLoading = isAfter(endOfMonth(monthStep), addDays(maxDateLoaded, 1));
               return (
                 <Month
                   {...this.props}
@@ -518,6 +523,7 @@ class Calendar extends PureComponent {
                   styles={this.styles}
                   showWeekDays={!isVertical || i === 0}
                   showMonthName={!isVertical || i > 0}
+                  isLoading={isMonthLoading}
                 />
               );
             })}
@@ -561,6 +567,8 @@ Calendar.defaultProps = {
   calendarFocus: 'forwards',
   preventSnapRefocus: false,
   ariaLabels: {},
+  maxDateLoaded: null,
+  loadingIndicator: 'loading…',
 };
 
 Calendar.propTypes = {
@@ -617,6 +625,8 @@ Calendar.propTypes = {
   calendarFocus: PropTypes.string,
   preventSnapRefocus: PropTypes.bool,
   ariaLabels: ariaLabelsShape,
+  maxDateLoaded: PropTypes.instanceOf(Date),
+  loadingIndicator: PropTypes.node,
 };
 
 export default Calendar;
