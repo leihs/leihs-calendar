@@ -163,8 +163,6 @@ class DateRange extends _react.Component {
     });
 
     _defineProperty(this, "updatePreview", val => {
-      var _ranges$focusedRange$;
-
       if (!val) {
         this.setState({
           preview: null
@@ -177,7 +175,8 @@ class DateRange extends _react.Component {
         ranges
       } = this.props;
       const focusedRange = this.props.focusedRange || this.state.focusedRange;
-      const color = ((_ranges$focusedRange$ = ranges[focusedRange[0]]) === null || _ranges$focusedRange$ === void 0 ? void 0 : _ranges$focusedRange$.color) || rangeColors[focusedRange[0]] || color;
+      const rangeColor = ranges[focusedRange[0]] && ranges[focusedRange[0]].color;
+      const color = rangeColor || rangeColors[focusedRange[0]];
       this.setState({
         preview: { ...val.range,
           color

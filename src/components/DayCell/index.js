@@ -152,7 +152,7 @@ class DayCell extends Component {
 
   render() {
     const { dayContentRenderer, dayConfigGetter } = this.props;
-    const { customClassNames } = dayConfigGetter?.(this.props.day) || {};
+    const { customClassNames } = (dayConfigGetter && dayConfigGetter(this.props.day)) || {};
     return (
       <button
         type="button"
@@ -171,7 +171,7 @@ class DayCell extends Component {
         {this.renderSelectionPlaceholders()}
         {this.renderPreviewPlaceholder()}
         <span className={this.props.styles.dayNumber}>
-          {dayContentRenderer?.(this.props.day) || (
+          {(dayContentRenderer && dayContentRenderer(this.props.day)) || (
             <span>{format(this.props.day, this.props.dayDisplayFormat)}</span>
           )}
         </span>

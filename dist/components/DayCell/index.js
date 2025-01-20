@@ -220,7 +220,7 @@ class DayCell extends _react.Component {
     } = this.props;
     const {
       customClassNames
-    } = (dayConfigGetter === null || dayConfigGetter === void 0 ? void 0 : dayConfigGetter(this.props.day)) || {};
+    } = dayConfigGetter && dayConfigGetter(this.props.day) || {};
     return /*#__PURE__*/_react.default.createElement("button", _extends({
       type: "button",
       onMouseEnter: this.handleMouseEvent,
@@ -241,7 +241,7 @@ class DayCell extends _react.Component {
       }
     }), this.renderSelectionPlaceholders(), this.renderPreviewPlaceholder(), /*#__PURE__*/_react.default.createElement("span", {
       className: this.props.styles.dayNumber
-    }, (dayContentRenderer === null || dayContentRenderer === void 0 ? void 0 : dayContentRenderer(this.props.day)) || /*#__PURE__*/_react.default.createElement("span", null, (0, _format.default)(this.props.day, this.props.dayDisplayFormat))));
+    }, dayContentRenderer && dayContentRenderer(this.props.day) || /*#__PURE__*/_react.default.createElement("span", null, (0, _format.default)(this.props.day, this.props.dayDisplayFormat))));
   }
 
 }
