@@ -1,6 +1,6 @@
 {
   "name": "@leihs/calendar",
-  "version": "3.0.0",
+  "version": "3.2.0-alpha.2",
   "description": "A React component for choosing dates and date ranges.",
   "main": "dist/index.js",
   "scripts": {
@@ -10,8 +10,7 @@
     "build:js": "babel ./src --out-dir ./dist --ignore test.js",
     "lint": "eslint 'src/**/*.js'",
     "test": "jest",
-    "clear": "rm -rf dist",
-    "prepare": "npm run clear & npm run build"
+    "clear": "rm -rf dist"
   },
   "keywords": [
     "react",
