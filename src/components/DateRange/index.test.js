@@ -1,9 +1,9 @@
 import React from 'react';
 import { subDays, addDays, isSameDay } from 'date-fns';
 import DateRange from '../DateRange';
-import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 
-let testRenderer = null;
+let wrapper = null;
 let instance = null;
 const endDate = new Date();
 const startDate = subDays(endDate, 7);
@@ -24,8 +24,8 @@ const compareRanges = (newRange, assertionRange) => {
 };
 
 beforeEach(() => {
-  testRenderer = renderer.create(<DateRange {...commonProps} />);
-  instance = testRenderer.getInstance();
+  wrapper = mount(<DateRange {...commonProps} />);
+  instance = wrapper.instance();
 });
 
 describe('DateRange', () => {
@@ -50,7 +50,7 @@ describe('DateRange', () => {
   });
 
   test('calculate new selection based on moveRangeOnFirstSelection prop', () => {
-    testRenderer.update(<DateRange {...commonProps} moveRangeOnFirstSelection />);
+    wrapper.setProps({ moveRangeOnFirstSelection: true });
     const methodResult = instance.calcNewSelection(subDays(endDate, 10), true);
     compareRanges(methodResult.range, {
       startDate: subDays(endDate, 10),
@@ -59,7 +59,7 @@ describe('DateRange', () => {
   });
 
   test('calculate new selection by retaining end date, based on retainEndDateOnFirstSelection prop', () => {
-    testRenderer.update(<DateRange {...commonProps} retainEndDateOnFirstSelection />);
+    wrapper.setProps({ retainEndDateOnFirstSelection: true });
     const methodResult = instance.calcNewSelection(subDays(endDate, 10), true);
     compareRanges(methodResult.range, {
       startDate: subDays(endDate, 10),
@@ -68,13 +68,10 @@ describe('DateRange', () => {
   });
 
   test('calculate new selection by retaining the unset end date, based on retainEndDateOnFirstSelection prop', () => {
-    testRenderer.update(
-      <DateRange
-        {...commonProps}
-        ranges={[{ ...commonProps.ranges[0], endDate: null }]}
-        retainEndDateOnFirstSelection
-      />
-    );
+    wrapper.setProps({
+      ranges: [{ ...commonProps.ranges[0], endDate: null }],
+      retainEndDateOnFirstSelection: true,
+    });
     const methodResult = instance.calcNewSelection(subDays(endDate, 10), true);
     compareRanges(methodResult.range, {
       startDate: subDays(endDate, 10),
