@@ -4,47 +4,25 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
 var _react = _interopRequireWildcard(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _classnames = _interopRequireDefault(require("classnames"));
-
 var _DayCell = _interopRequireWildcard(require("../DayCell"));
-
 var _eachDayOfInterval = _interopRequireDefault(require("date-fns/eachDayOfInterval"));
-
 var _isWithinInterval = _interopRequireDefault(require("date-fns/isWithinInterval"));
-
 var _isWeekend = _interopRequireDefault(require("date-fns/isWeekend"));
-
 var _isAfter = _interopRequireDefault(require("date-fns/isAfter"));
-
 var _isSameDay = _interopRequireDefault(require("date-fns/isSameDay"));
-
 var _isBefore = _interopRequireDefault(require("date-fns/isBefore"));
-
 var _endOfWeek = _interopRequireDefault(require("date-fns/endOfWeek"));
-
 var _startOfWeek = _interopRequireDefault(require("date-fns/startOfWeek"));
-
 var _endOfDay = _interopRequireDefault(require("date-fns/endOfDay"));
-
 var _startOfDay = _interopRequireDefault(require("date-fns/startOfDay"));
-
 var _format = _interopRequireDefault(require("date-fns/format"));
-
 var _utils = require("../../utils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); } /* eslint-disable no-fallthrough */
 function renderWeekdays(styles, dateOptions, weekdayDisplayFormat) {
   const now = new Date();
   return /*#__PURE__*/_react.default.createElement("div", {
@@ -57,7 +35,6 @@ function renderWeekdays(styles, dateOptions, weekdayDisplayFormat) {
     key: i
   }, (0, _format.default)(day, weekdayDisplayFormat, dateOptions))));
 }
-
 class Month extends _react.PureComponent {
   render() {
     const now = new Date();
@@ -75,7 +52,6 @@ class Month extends _react.PureComponent {
     const maxDate = this.props.maxDate && (0, _endOfDay.default)(this.props.maxDate);
     const monthDisplay = (0, _utils.getMonthDisplayRange)(this.props.month, this.props.dateOptions, this.props.fixedHeight);
     let ranges = this.props.ranges;
-
     if (!isLoading && displayMode === 'dateRange' && drag.status) {
       let {
         startDate,
@@ -83,13 +59,13 @@ class Month extends _react.PureComponent {
       } = drag.range;
       ranges = ranges.map((range, i) => {
         if (i !== focusedRange[0]) return range;
-        return { ...range,
+        return {
+          ...range,
           startDate,
           endDate
         };
       });
     }
-
     const showPreview = !isLoading && this.props.showPreview && !drag.disablePreview;
     return /*#__PURE__*/_react.default.createElement("div", {
       className: (0, _classnames.default)(styles.month, {
@@ -137,9 +113,7 @@ class Month extends _react.PureComponent {
       className: "rdrMonthPassiveOverlay"
     }, loadingIndicator ? loadingIndicator : false));
   }
-
 }
-
 Month.defaultProps = {
   isLoading: true
 };
@@ -174,5 +148,4 @@ Month.propTypes = {
   isLoading: _propTypes.default.bool,
   loadingIndicator: _propTypes.default.node
 };
-var _default = Month;
-exports.default = _default;
+var _default = exports.default = Month;

@@ -15,7 +15,7 @@ exports[`DefinedRange tests Should render dynamic static label contents correctl
       onMouseLeave={[Function]}
       onMouseOver={[Function]}
       style={
-        Object {
+        {
           "color": null,
         }
       }
@@ -40,7 +40,7 @@ exports[`DefinedRange tests Should render dynamic static label contents correctl
       onMouseLeave={[Function]}
       onMouseOver={[Function]}
       style={
-        Object {
+        {
           "color": null,
         }
       }
@@ -61,7 +61,7 @@ exports[`DefinedRange tests Should render dynamic static label contents correctl
       onMouseLeave={[Function]}
       onMouseOver={[Function]}
       style={
-        Object {
+        {
           "color": null,
         }
       }
@@ -84,7 +84,7 @@ exports[`DefinedRange tests Should render dynamic static label contents correctl
       onMouseLeave={[Function]}
       onMouseOver={[Function]}
       style={
-        Object {
+        {
           "color": null,
         }
       }
@@ -113,7 +113,7 @@ exports[`DefinedRange tests Should render dynamic static label contents correctl
       onFocus={[Function]}
       placeholder="-"
       styles={
-        Object {
+        {
           "calendarWrapper": "rdrCalendarWrapper",
           "dateDisplay": "rdrDateDisplay",
           "dateDisplayItem": "rdrDateDisplayItem",
@@ -179,7 +179,7 @@ exports[`DefinedRange tests Should render dynamic static label contents correctl
       onFocus={[Function]}
       placeholder="-"
       styles={
-        Object {
+        {
           "calendarWrapper": "rdrCalendarWrapper",
           "dateDisplay": "rdrDateDisplay",
           "dateDisplayItem": "rdrDateDisplayItem",

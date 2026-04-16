@@ -6,48 +6,48 @@ exports[`InputRangeField tests Should parse input value to number 1`] = `
   onBlur={[MockFunction]}
   onChange={
     [MockFunction] {
-      "calls": Array [
-        Array [
+      "calls": [
+        [
           3,
         ],
-        Array [
+        [
           12,
         ],
-        Array [
+        [
           0,
         ],
-        Array [
+        [
           0,
         ],
-        Array [
+        [
           0,
         ],
-        Array [
+        [
           99999,
         ],
       ],
-      "results": Array [
-        Object {
+      "results": [
+        {
           "type": "return",
           "value": undefined,
         },
-        Object {
+        {
           "type": "return",
           "value": undefined,
         },
-        Object {
+        {
           "type": "return",
           "value": undefined,
         },
-        Object {
+        {
           "type": "return",
           "value": undefined,
         },
-        Object {
+        {
           "type": "return",
           "value": undefined,
         },
-        Object {
+        {
           "type": "return",
           "value": undefined,
         },
@@ -57,7 +57,7 @@ exports[`InputRangeField tests Should parse input value to number 1`] = `
   onFocus={[MockFunction]}
   placeholder="-"
   styles={
-    Object {
+    {
       "inputRange": "range",
       "inputRangeInput": "input",
       "inputRangeLabel": "label",

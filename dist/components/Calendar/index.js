@@ -4,101 +4,61 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
 var _react = _interopRequireWildcard(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _DayCell = require("../DayCell");
-
 var _Month = _interopRequireDefault(require("../Month"));
-
 var _DateInput = _interopRequireDefault(require("../DateInput"));
-
 var _utils = require("../../utils");
-
 var _classnames = _interopRequireDefault(require("classnames"));
-
 var _reactList = _interopRequireDefault(require("react-list"));
-
 var _shallowEqual = require("shallow-equal");
-
 var _max = _interopRequireDefault(require("date-fns/max"));
-
 var _min = _interopRequireDefault(require("date-fns/min"));
-
 var _differenceInDays = _interopRequireDefault(require("date-fns/differenceInDays"));
-
 var _isSameMonth = _interopRequireDefault(require("date-fns/isSameMonth"));
-
 var _addDays = _interopRequireDefault(require("date-fns/addDays"));
-
 var _endOfMonth = _interopRequireDefault(require("date-fns/endOfMonth"));
-
 var _startOfMonth = _interopRequireDefault(require("date-fns/startOfMonth"));
-
 var _differenceInCalendarMonths = _interopRequireDefault(require("date-fns/differenceInCalendarMonths"));
-
 var _setMonth = _interopRequireDefault(require("date-fns/setMonth"));
-
 var _setYear = _interopRequireDefault(require("date-fns/setYear"));
-
 var _addYears = _interopRequireDefault(require("date-fns/addYears"));
-
 var _isAfter = _interopRequireDefault(require("date-fns/isAfter"));
-
 var _isSameDay = _interopRequireDefault(require("date-fns/isSameDay"));
-
 var _endOfWeek = _interopRequireDefault(require("date-fns/endOfWeek"));
-
 var _startOfWeek = _interopRequireDefault(require("date-fns/startOfWeek"));
-
 var _eachDayOfInterval = _interopRequireDefault(require("date-fns/eachDayOfInterval"));
-
 var _format = _interopRequireDefault(require("date-fns/format"));
-
 var _subMonths = _interopRequireDefault(require("date-fns/subMonths"));
-
 var _addMonths = _interopRequireDefault(require("date-fns/addMonths"));
-
 var _enUS = _interopRequireDefault(require("date-fns/locale/en-US"));
-
 var _styles = _interopRequireDefault(require("../../styles"));
-
 var _accessibility = require("../../accessibility");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == typeof i ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != typeof i) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 class Calendar extends _react.PureComponent {
   constructor(_props, context) {
     super(_props, context);
-
     _defineProperty(this, "focusToDate", (date, props = this.props, preventUnnecessary = true) => {
       if (!props.scroll.enabled) {
         if (preventUnnecessary && props.preventSnapRefocus) {
           const focusedDateDiff = (0, _differenceInCalendarMonths.default)(date, this.state.focusedDate);
           const isAllowedForward = props.calendarFocus === 'forwards' && focusedDateDiff >= 0;
           const isAllowedBackward = props.calendarFocus === 'backwards' && focusedDateDiff <= 0;
-
           if ((isAllowedForward || isAllowedBackward) && Math.abs(focusedDateDiff) < props.months) {
             return;
           }
         }
-
         this.setState({
           focusedDate: date
         });
         return;
       }
-
       const targetMonthIndex = (0, _differenceInCalendarMonths.default)(date, props.minDate, this.dateOptions);
       const visibleMonths = this.list.getVisibleRange();
       if (preventUnnecessary && visibleMonths.includes(targetMonthIndex)) return;
@@ -108,15 +68,14 @@ class Calendar extends _react.PureComponent {
         focusedDate: date
       });
     });
-
     _defineProperty(this, "updateShownDate", (props = this.props) => {
-      const newProps = props.scroll.enabled ? { ...props,
+      const newProps = props.scroll.enabled ? {
+        ...props,
         months: this.list.getVisibleRange().length
       } : props;
       const newFocus = (0, _utils.calcFocusDate)(this.state.focusedDate, newProps);
       this.focusToDate(newFocus, newProps);
     });
-
     _defineProperty(this, "updatePreview", val => {
       if (!val) {
         this.setState({
@@ -124,7 +83,6 @@ class Calendar extends _react.PureComponent {
         });
         return;
       }
-
       const preview = {
         startDate: val,
         endDate: val,
@@ -134,7 +92,6 @@ class Calendar extends _react.PureComponent {
         preview
       });
     });
-
     _defineProperty(this, "changeShownDate", (value, mode = 'set') => {
       const {
         focusedDate
@@ -154,11 +111,9 @@ class Calendar extends _react.PureComponent {
       this.focusToDate(newDate, this.props, false);
       onShownDateChange && onShownDateChange(newDate);
     });
-
     _defineProperty(this, "handleRangeFocusChange", (rangesIndex, rangeItemIndex) => {
       this.props.onRangeFocusChange && this.props.onRangeFocusChange([rangesIndex, rangeItemIndex]);
     });
-
     _defineProperty(this, "handleScroll", () => {
       const {
         onShownDateChange,
@@ -170,22 +125,19 @@ class Calendar extends _react.PureComponent {
       const {
         isFirstRender
       } = this;
-      const visibleMonths = this.list.getVisibleRange(); // prevent scroll jump with wrong visible value
-
+      const visibleMonths = this.list.getVisibleRange();
+      // prevent scroll jump with wrong visible value
       if (visibleMonths[0] === undefined) return;
       const visibleMonth = (0, _addMonths.default)(minDate, visibleMonths[0] || 0);
       const isFocusedToDifferent = !(0, _isSameMonth.default)(visibleMonth, focusedDate);
-
       if (isFocusedToDifferent && !isFirstRender) {
         this.setState({
           focusedDate: visibleMonth
         });
         onShownDateChange && onShownDateChange(visibleMonth);
       }
-
       this.isFirstRender = false;
     });
-
     _defineProperty(this, "renderMonthAndYear", (focusedDate, changeShownDate, props) => {
       const {
         showMonthArrow,
@@ -239,7 +191,6 @@ class Calendar extends _react.PureComponent {
         "aria-label": ariaLabels.nextButton
       }, /*#__PURE__*/_react.default.createElement("i", null)) : null);
     });
-
     _defineProperty(this, "renderDateDisplay", () => {
       const {
         focusedRange,
@@ -293,13 +244,11 @@ class Calendar extends _react.PureComponent {
         }));
       }));
     });
-
     _defineProperty(this, "onDragSelectionStart", date => {
       const {
         onChange,
         dragSelectionEnabled
       } = this.props;
-
       if (dragSelectionEnabled) {
         this.setState({
           drag: {
@@ -315,7 +264,6 @@ class Calendar extends _react.PureComponent {
         onChange && onChange(date);
       }
     });
-
     _defineProperty(this, "onDragSelectionEnd", date => {
       const {
         updateRange,
@@ -324,17 +272,14 @@ class Calendar extends _react.PureComponent {
         dragSelectionEnabled
       } = this.props;
       if (!dragSelectionEnabled) return;
-
       if (displayMode === 'date' || !this.state.drag.status) {
         onChange && onChange(date);
         return;
       }
-
       const newRange = {
         startDate: this.state.drag.range.startDate,
         endDate: date
       };
-
       if (displayMode !== 'dateRange' || (0, _isSameDay.default)(newRange.startDate, date)) {
         this.setState({
           drag: {
@@ -353,7 +298,6 @@ class Calendar extends _react.PureComponent {
         });
       }
     });
-
     _defineProperty(this, "onDragSelectionMove", date => {
       const {
         drag
@@ -370,7 +314,6 @@ class Calendar extends _react.PureComponent {
         }
       });
     });
-
     _defineProperty(this, "estimateMonthSize", (index, cache) => {
       const {
         direction,
@@ -379,12 +322,10 @@ class Calendar extends _react.PureComponent {
       const {
         scrollArea
       } = this.state;
-
       if (cache) {
         this.listSizeCache = cache;
         if (cache[index]) return cache[index];
       }
-
       if (direction === 'horizontal') return scrollArea.monthWidth;
       const monthStep = (0, _addMonths.default)(minDate, index);
       const {
@@ -394,7 +335,6 @@ class Calendar extends _react.PureComponent {
       const isLongMonth = (0, _differenceInDays.default)(end, start, this.dateOptions) + 1 > 7 * 5;
       return isLongMonth ? scrollArea.longMonthHeight : scrollArea.monthHeight;
     });
-
     this.dateOptions = {
       locale: _props.locale
     };
@@ -416,11 +356,9 @@ class Calendar extends _react.PureComponent {
       scrollArea: this.calcScrollArea(_props)
     };
   }
-
   getMonthNames() {
     return [...Array(12).keys()].map(i => this.props.locale.localize.month(i));
   }
-
   calcScrollArea(props) {
     const {
       direction,
@@ -431,7 +369,6 @@ class Calendar extends _react.PureComponent {
       enabled: false
     };
     const longMonthHeight = scroll.longMonthHeight || scroll.monthHeight;
-
     if (direction === 'vertical') {
       return {
         enabled: true,
@@ -441,7 +378,6 @@ class Calendar extends _react.PureComponent {
         calendarHeight: (scroll.calendarHeight || longMonthHeight || 240) * months
       };
     }
-
     return {
       enabled: true,
       monthWidth: scroll.monthWidth || 332,
@@ -450,14 +386,12 @@ class Calendar extends _react.PureComponent {
       calendarHeight: longMonthHeight || 300
     };
   }
-
   componentDidMount() {
     if (this.props.scroll.enabled) {
       // prevent react-list's initial render focus problem
       setTimeout(() => this.focusToDate(this.state.focusedDate));
     }
   }
-
   componentDidUpdate(prevProps) {
     // Removed the following because it causes unwanted month jumping on prop change.
     //
@@ -469,6 +403,7 @@ class Calendar extends _react.PureComponent {
     // if (this.props[targetProp] !== prevProps[targetProp]) {
     //   this.updateShownDate(this.props);
     // }
+
     if (prevProps.locale !== this.props.locale || prevProps.weekStartsOn !== this.props.weekStartsOn) {
       this.dateOptions = {
         locale: this.props.locale
@@ -478,14 +413,12 @@ class Calendar extends _react.PureComponent {
         monthNames: this.getMonthNames()
       });
     }
-
     if (!(0, _shallowEqual.shallowEqualObjects)(prevProps.scroll, this.props.scroll)) {
       this.setState({
         scrollArea: this.calcScrollArea(this.props)
       });
     }
   }
-
   renderWeekdays() {
     const now = new Date();
     return /*#__PURE__*/_react.default.createElement("div", {
@@ -498,7 +431,6 @@ class Calendar extends _react.PureComponent {
       key: i
     }, (0, _format.default)(day, this.props.weekdayDisplayFormat, this.dateOptions))));
   }
-
   render() {
     const {
       showDateDisplay,
@@ -522,7 +454,8 @@ class Calendar extends _react.PureComponent {
     } = this.state;
     const isVertical = direction === 'vertical';
     const monthAndYearRenderer = navigatorRenderer || this.renderMonthAndYear;
-    const ranges = this.props.ranges.map((range, i) => ({ ...range,
+    const ranges = this.props.ranges.map((range, i) => ({
+      ...range,
       color: range.color || rangeColors[i] || color
     }));
     return /*#__PURE__*/_react.default.createElement("div", {
@@ -589,11 +522,9 @@ class Calendar extends _react.PureComponent {
       className: (0, _classnames.default)(this.styles.months, isVertical ? this.styles.monthsVertical : this.styles.monthsHorizontal)
     }, new Array(this.props.months).fill(null).map((_, i) => {
       let monthStep = (0, _addMonths.default)(this.state.focusedDate, i);
-
       if (this.props.calendarFocus === 'backwards') {
         monthStep = (0, _subMonths.default)(this.state.focusedDate, this.props.months - 1 - i);
       }
-
       const isMonthLoading = (0, _isAfter.default)((0, _endOfMonth.default)(monthStep), (0, _addDays.default)(maxDateLoaded, 1));
       return /*#__PURE__*/_react.default.createElement(_Month.default, _extends({}, this.props, {
         onPreviewChange: onPreviewChange || this.updatePreview,
@@ -616,9 +547,7 @@ class Calendar extends _react.PureComponent {
       }));
     })));
   }
-
 }
-
 Calendar.defaultProps = {
   showMonthArrow: true,
   showMonthAndYearPickers: true,
@@ -712,5 +641,4 @@ Calendar.propTypes = {
   maxDateLoaded: _propTypes.default.instanceOf(Date),
   loadingIndicator: _propTypes.default.node
 };
-var _default = Calendar;
-exports.default = _default;
+var _default = exports.default = Calendar;

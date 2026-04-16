@@ -75,6 +75,9 @@ module.exports = {
     'react-date-range': path.resolve(__dirname, moduleSource),
   },
   webpackConfig: {
+    optimization: {
+      minimize: false,
+    },
     module: {
       rules: [
         {
@@ -84,7 +87,7 @@ module.exports = {
         },
         {
           test: /\.css$/,
-          loader: 'style-loader!css-loader?modules',
+          use: ['style-loader', { loader: 'css-loader', options: { modules: true } }],
         },
         {
           test: /\.svg$/,
@@ -93,6 +96,7 @@ module.exports = {
       ],
     },
   },
+  assetsDir: path.resolve(__dirname),
   pagePerSection: false,
   sections: [
     {

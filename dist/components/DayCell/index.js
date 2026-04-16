@@ -3,56 +3,35 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.rangeShape = void 0;
-
+exports.rangeShape = exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _classnames = _interopRequireDefault(require("classnames"));
-
 var _endOfDay = _interopRequireDefault(require("date-fns/endOfDay"));
-
 var _isBefore = _interopRequireDefault(require("date-fns/isBefore"));
-
 var _isAfter = _interopRequireDefault(require("date-fns/isAfter"));
-
 var _isSameDay = _interopRequireDefault(require("date-fns/isSameDay"));
-
 var _format = _interopRequireDefault(require("date-fns/format"));
-
 var _startOfDay = _interopRequireDefault(require("date-fns/startOfDay"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == typeof i ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != typeof i) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); } /* eslint-disable no-fallthrough */
 class DayCell extends _react.Component {
   constructor(props, context) {
     super(props, context);
-
     _defineProperty(this, "handleKeyEvent", event => {
       const {
         day,
         onMouseDown,
         onMouseUp
       } = this.props;
-
-      if ([13
-      /* space */
-      , 32
-      /* enter */
-      ].includes(event.keyCode)) {
+      if ([13 /* space */, 32 /* enter */].includes(event.keyCode)) {
         if (event.type === 'keydown') onMouseDown(day);else onMouseUp(day);
       }
     });
-
     _defineProperty(this, "handleMouseEvent", event => {
       const {
         day,
@@ -63,45 +42,37 @@ class DayCell extends _react.Component {
         onMouseUp
       } = this.props;
       const stateChanges = {};
-
       if (disabled) {
         onPreviewChange();
         return;
       }
-
       switch (event.type) {
         case 'mouseenter':
           onMouseEnter(day);
           onPreviewChange(day);
           stateChanges.hover = true;
           break;
-
         case 'blur':
         case 'mouseleave':
           stateChanges.hover = false;
           break;
-
         case 'mousedown':
           stateChanges.active = true;
           onMouseDown(day);
           break;
-
         case 'mouseup':
           event.stopPropagation();
           stateChanges.active = false;
           onMouseUp(day);
           break;
-
         case 'focus':
           onPreviewChange(day);
           break;
       }
-
       if (Object.keys(stateChanges).length) {
         this.setState(stateChanges);
       }
     });
-
     _defineProperty(this, "getClassNames", customClassNames => {
       const {
         isPassive,
@@ -127,7 +98,6 @@ class DayCell extends _react.Component {
         [styles.dayActive]: this.state.active
       });
     });
-
     _defineProperty(this, "renderPreviewPlaceholder", () => {
       const {
         preview,
@@ -151,14 +121,12 @@ class DayCell extends _react.Component {
         }
       });
     });
-
     _defineProperty(this, "renderSelectionPlaceholders", () => {
       const {
         styles,
         ranges,
         day
       } = this.props;
-
       if (this.props.displayMode === 'date') {
         let isSelected = (0, _isSameDay.default)(this.props.day, this.props.date);
         return isSelected ? /*#__PURE__*/_react.default.createElement("span", {
@@ -168,21 +136,17 @@ class DayCell extends _react.Component {
           }
         }) : null;
       }
-
       const inRanges = ranges.reduce((result, range) => {
         let startDate = range.startDate;
         let endDate = range.endDate;
-
         if (startDate && endDate && (0, _isBefore.default)(endDate, startDate)) {
           [startDate, endDate] = [endDate, startDate];
         }
-
         startDate = startDate ? (0, _endOfDay.default)(startDate) : null;
         endDate = endDate ? (0, _startOfDay.default)(endDate) : null;
         const isInRange = (!startDate || (0, _isAfter.default)(day, startDate)) && (!endDate || (0, _isBefore.default)(day, endDate));
         const isStartEdge = !isInRange && (0, _isSameDay.default)(day, startDate);
         const isEndEdge = !isInRange && (0, _isSameDay.default)(day, endDate);
-
         if (isInRange || isStartEdge || isEndEdge) {
           return [...result, {
             isStartEdge,
@@ -191,7 +155,6 @@ class DayCell extends _react.Component {
             ...range
           }];
         }
-
         return result;
       }, []);
       return inRanges.map((range, i) => /*#__PURE__*/_react.default.createElement("span", {
@@ -206,13 +169,11 @@ class DayCell extends _react.Component {
         }
       }));
     });
-
     this.state = {
       hover: false,
       active: false
     };
   }
-
   render() {
     const {
       dayContentRenderer,
@@ -243,12 +204,9 @@ class DayCell extends _react.Component {
       className: this.props.styles.dayNumber
     }, dayContentRenderer && dayContentRenderer(this.props.day) || /*#__PURE__*/_react.default.createElement("span", null, (0, _format.default)(this.props.day, this.props.dayDisplayFormat))));
   }
-
 }
-
 DayCell.defaultProps = {};
-
-const rangeShape = _propTypes.default.shape({
+const rangeShape = exports.rangeShape = _propTypes.default.shape({
   startDate: _propTypes.default.object,
   endDate: _propTypes.default.object,
   color: _propTypes.default.string,
@@ -257,8 +215,6 @@ const rangeShape = _propTypes.default.shape({
   disabled: _propTypes.default.bool,
   showDateDisplay: _propTypes.default.bool
 });
-
-exports.rangeShape = rangeShape;
 DayCell.propTypes = {
   day: _propTypes.default.object.isRequired,
   dayDisplayFormat: _propTypes.default.string,
@@ -288,5 +244,4 @@ DayCell.propTypes = {
   dayContentRenderer: _propTypes.default.func,
   dayConfigGetter: _propTypes.default.func
 };
-var _default = DayCell;
-exports.default = _default;
+var _default = exports.default = DayCell;

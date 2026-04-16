@@ -3,16 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-Object.defineProperty(exports, "DateRange", {
-  enumerable: true,
-  get: function () {
-    return _DateRange.default;
-  }
-});
 Object.defineProperty(exports, "Calendar", {
   enumerable: true,
   get: function () {
     return _Calendar.default;
+  }
+});
+Object.defineProperty(exports, "DateRange", {
+  enumerable: true,
+  get: function () {
+    return _DateRange.default;
   }
 });
 Object.defineProperty(exports, "DateRangePicker", {
@@ -27,6 +27,12 @@ Object.defineProperty(exports, "DefinedRange", {
     return _DefinedRange.default;
   }
 });
+Object.defineProperty(exports, "createStaticRanges", {
+  enumerable: true,
+  get: function () {
+    return _defaultRanges.createStaticRanges;
+  }
+});
 Object.defineProperty(exports, "defaultInputRanges", {
   enumerable: true,
   get: function () {
@@ -39,21 +45,9 @@ Object.defineProperty(exports, "defaultStaticRanges", {
     return _defaultRanges.defaultStaticRanges;
   }
 });
-Object.defineProperty(exports, "createStaticRanges", {
-  enumerable: true,
-  get: function () {
-    return _defaultRanges.createStaticRanges;
-  }
-});
-
 var _DateRange = _interopRequireDefault(require("./components/DateRange"));
-
 var _Calendar = _interopRequireDefault(require("./components/Calendar"));
-
 var _DateRangePicker = _interopRequireDefault(require("./components/DateRangePicker"));
-
 var _DefinedRange = _interopRequireDefault(require("./components/DefinedRange"));
-
 var _defaultRanges = require("./defaultRanges");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }

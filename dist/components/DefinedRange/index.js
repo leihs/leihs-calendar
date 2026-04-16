@@ -4,33 +4,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
 var _react = _interopRequireWildcard(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _styles = _interopRequireDefault(require("../../styles"));
-
 var _defaultRanges = require("../../defaultRanges");
-
 var _DayCell = require("../DayCell");
-
 var _InputRangeField = _interopRequireDefault(require("../InputRangeField"));
-
 var _classnames = _interopRequireDefault(require("classnames"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == typeof i ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != typeof i) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 class DefinedRange extends _react.Component {
   constructor(props) {
     super(props);
-
     _defineProperty(this, "handleRangeChange", range => {
       const {
         onChange,
@@ -40,32 +28,28 @@ class DefinedRange extends _react.Component {
       const selectedRange = ranges[focusedRange[0]];
       if (!onChange || !selectedRange) return;
       onChange({
-        [selectedRange.key || `range${focusedRange[0] + 1}`]: { ...selectedRange,
+        [selectedRange.key || `range${focusedRange[0] + 1}`]: {
+          ...selectedRange,
           ...range
         }
       });
     });
-
     this.state = {
       rangeOffset: 0,
       focusedInput: -1
     };
   }
-
   getRangeOptionValue(option) {
     const {
       ranges = [],
       focusedRange = []
     } = this.props;
-
     if (typeof option.getCurrentValue !== 'function') {
       return '';
     }
-
     const selectedRange = ranges[focusedRange[0]] || {};
     return option.getCurrentValue(selectedRange) || '';
   }
-
   getSelectedRange(ranges, staticRange) {
     const focusedRangeIndex = ranges.findIndex(range => {
       if (!range.startDate || !range.endDate || range.disabled) return false;
@@ -77,7 +61,6 @@ class DefinedRange extends _react.Component {
       focusedRangeIndex
     };
   }
-
   render() {
     const {
       headerContent,
@@ -100,13 +83,11 @@ class DefinedRange extends _react.Component {
         focusedRangeIndex
       } = this.getSelectedRange(ranges, staticRange);
       let labelContent;
-
       if (staticRange.hasCustomRendering) {
         labelContent = renderStaticRangeLabel(staticRange);
       } else {
         labelContent = staticRange.label;
       }
-
       return /*#__PURE__*/_react.default.createElement("button", {
         type: "button",
         className: (0, _classnames.default)(_styles.default.staticRange, {
@@ -143,9 +124,7 @@ class DefinedRange extends _react.Component {
       value: this.getRangeOptionValue(rangeOption)
     }))), footerContent);
   }
-
 }
-
 DefinedRange.propTypes = {
   inputRanges: _propTypes.default.array,
   staticRanges: _propTypes.default.array,
@@ -166,5 +145,4 @@ DefinedRange.defaultProps = {
   rangeColors: ['#3d91ff', '#3ecf8e', '#fed14c'],
   focusedRange: [0, 0]
 };
-var _default = DefinedRange;
-exports.default = _default;
+var _default = exports.default = DefinedRange;

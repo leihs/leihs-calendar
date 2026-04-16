@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _default = {
+var _default = exports.default = {
   dateRangeWrapper: 'rdrDateRangeWrapper',
   calendarWrapper: 'rdrCalendarWrapper',
   dateDisplay: 'rdrDateDisplay',
@@ -59,4 +59,3 @@ var _default = {
   monthsHorizontal: 'rdrMonthsHorizontal',
   monthIsLoading: 'rdrMonthIsLoading'
 };
-exports.default = _default;
