@@ -25,7 +25,7 @@
   }
 
 .rdrDateDisplayItem input{
-    text-align: inherit
+    text-align: inherit;
   }
 
 .rdrDateDisplayItem input:disabled{

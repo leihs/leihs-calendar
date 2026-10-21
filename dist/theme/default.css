@@ -59,7 +59,7 @@
     background: url("data:image/svg+xml;utf8,<svg width='9px' height='6px' viewBox='0 0 9 6' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><g id='Artboard' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' transform='translate(-636.000000, -171.000000)' fill-opacity='0.368716033'><g id='input' transform='translate(172.000000, 37.000000)' fill='%230E242F' fill-rule='nonzero'><g id='Group-9' transform='translate(323.000000, 127.000000)'><path d='M142.280245,7.23952813 C141.987305,6.92353472 141.512432,6.92361662 141.219585,7.23971106 C140.926739,7.5558055 140.926815,8.06821394 141.219755,8.38420735 L145.498801,13 L149.780245,8.38162071 C150.073185,8.0656273 150.073261,7.55321886 149.780415,7.23712442 C149.487568,6.92102998 149.012695,6.92094808 148.719755,7.23694149 L145.498801,10.7113732 L142.280245,7.23952813 Z' id='arrow'></path></g></g></g></svg>") no-repeat;
     background-position: right 8px center;
     cursor: pointer;
-    text-align: center
+    text-align: center;
   }
 
 .rdrMonthAndYearPickers select:hover{
@@ -78,7 +78,7 @@
   padding: 0;
   border: 0;
   border-radius: 5px;
-  background: #EFF2F7
+  background: #EFF2F7;
 }
 
 .rdrNextPrevButton:hover{
@@ -109,6 +109,7 @@
     transform: translate(3px, 0px);
   }
 
+
 .rdrWeekDays {
   padding: 0 0.833em;
 }
@@ -119,11 +120,11 @@
 
 .rdrMonth .rdrWeekDays {
     padding: 0;
-  }
+  }  
 
 .rdrMonths.rdrMonthsVertical .rdrMonth:first-child .rdrMonthName{
   display: none;
-}
+}  
 
 .rdrWeekDay {
   font-weight: 400;
@@ -141,7 +142,7 @@
   line-height: 3.000em;
   height: 3.000em;
   text-align: center;
-  color: #1d2429
+  color: #1d2429;
 }
 
 .rdrDay:focus {
@@ -164,7 +165,7 @@
 }
 
 .rdrDayToday .rdrDayNumber span{
-  font-weight: 500
+  font-weight: 500;
 }
 
 .rdrDayToday .rdrDayNumber span:after{
@@ -245,6 +246,7 @@
    right: 0px;
  }
 
+
 .rdrDayStartPreview, .rdrDayInPreview, .rdrDayEndPreview{
   background: rgba(255, 255, 255, 0.09);
   position: absolute;
@@ -256,6 +258,7 @@
   border: 0px solid currentColor;
   z-index: 1;
 }
+
 
 .rdrDayStartPreview{
   border-top-width: 1px;
@@ -300,7 +303,7 @@
   outline: 0;
   border-bottom: 1px solid #eff2f7;
   padding: 0;
-  background: #fff
+  background: #fff;
 }
 
 .rdrStaticRange:hover .rdrStaticRangeLabel,.rdrStaticRange:focus .rdrStaticRangeLabel{
@@ -332,7 +335,7 @@
   text-align: center;
   border: solid 1px rgb(222, 231, 235);
   margin-right: 10px;
-  color: rgb(108, 118, 122)
+  color: rgb(108, 118, 122);
 }
 
 .rdrInputRangeInput:focus, .rdrInputRangeInput:hover{
